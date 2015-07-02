@@ -374,21 +374,6 @@ elsif (@ARGV == 2)
 		}
 		
 	}
-	if($ARGV[0]=~/BSDIR/)
-	{
-		if ($ARGV[1]=~ /\w+/)
-		{
-			print "Target Dir is ".@ARGV[1]."\n";
-			$path_sub_folder = @ARGV[1] ;
-			BlueShark();
-			print "All Done!\n";
-		}
-		else
-		{
-			warning();
-		}
-		
-	}
 	else
 	{
 		warning();

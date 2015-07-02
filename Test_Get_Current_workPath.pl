@@ -1,0 +1,3 @@
+use Cwd;
+
+print getcwd;
