@@ -154,11 +154,12 @@ foreach my $name (keys %detail)
 	$~ = 'STDOUT';
 	 write;
 }
-	
+
 format STDOUT_TOP =
 @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 $timeRegexpString	  
 		Daily Report Status 
+------------------------------------------------------------------		
 Name           Team             Report Status
 ------------------------------------------------------------------
 .
@@ -166,11 +167,11 @@ Name           Team             Report Status
 format STDOUT =
 @<<<<<<<<<<<<<@<<<<<<<<<<<<<<<<<<@<<<<<<<<<<<<<<<<<<
 $dname,                        $dteam,                                   $dstatus
-
 .
 
 close(REPORT_ST) or die $!;
 close(REPORT_AT)or die $!;
+print "------------------------------------------------------------------\n";
 print "ST: ".$st."/".$st_profile."\n";
 print "AT: ".$at."/".$at_profile."\n";
 print "Done\n";
