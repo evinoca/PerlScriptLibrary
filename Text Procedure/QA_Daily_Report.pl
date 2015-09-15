@@ -63,6 +63,7 @@ my $st_profile = 0;
 my $at_profile = 0;
 
 chdir $work_path."//DailyReport" or die "Can't find path DailyReport".$!;
+
 foreach my $file (glob "*.txt")
 	{
 		#print $file;
@@ -95,17 +96,17 @@ foreach my $file (glob "*.txt")
 			   {
 					syswrite(REPORT_ST,$line."\r\n") or die "Can't write report file".$!;
 					$submitFlag=1;
-			   }
-				
+			   }				
 			}
-			syswrite(REPORT_ST,"\r\n") or die "Can't write report file".$!;
 			if ($submitFlag == 0){
 				$detail{$1}{"status"}="Not Submit";
+				syswrite(REPORT_ST,"\r\n") or die "Can't write report file".$!;
 			}
 			else{
 				$st++;
 				$detail{$1}{"status"}="Updated";			
 			}
+			syswrite(REPORT_ST,"\r\n") or die "Can't write report file".$!;
 		}
 		elsif ($file=~m/AT_(.*).txt/)
 		{
@@ -133,16 +134,16 @@ foreach my $file (glob "*.txt")
 			   {
 					syswrite(REPORT_AT,$line."\r\n") or die "Can't write report file".$!;
 			   }
-			  
-
 			}
 			if ($submitFlag == 0){
 				$detail{$1}{"status"}="Not Submit";
+				syswrite(REPORT_AT,"\r\n") or die "Can't write report file".$!;
 			}
 			else{
 				$at++;
 				$detail{$1}{"status"}="Updated";
 			}
+			syswrite(REPORT_AT,"\r\n") or die "Can't write report file".$!;
 		}
 	}
 	
@@ -152,7 +153,7 @@ foreach my $name (keys %detail)
 	($dname, $dteam, $dstatus)= ($name,$detail{$name}{"team"},$detail{$name}{"status"});
 	$^ = 'STDOUT_TOP';
 	$~ = 'STDOUT';
-	 write;
+	write or die "Error",$!;
 }
 
 format STDOUT_TOP =
@@ -174,5 +175,4 @@ close(REPORT_AT)or die $!;
 print "------------------------------------------------------------------\n";
 print "ST: ".$st."/".$st_profile."\n";
 print "AT: ".$at."/".$at_profile."\n";
-print "Done\n";
-sleep (3)or die $!;
+system("pause");
